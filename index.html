@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Électricité Pro – Module électrique RDC</title>
+<style>
+:root{--paper:#f6f7f9;--ink:#1a2233;--muted:#59627a;--line:#d6dbe6;--blue:#0b5cad;--hl:#ffc61a;--ok:#1d7a4a;--warn:#b3261e;--card:#fff;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#10151f;--ink:#e9edf5;--muted:#9ba5bd;--line:#29324a;--blue:#7fb4ff;--hl:#e0ac12;--ok:#5fd397;--warn:#ff8a80;--card:#182032;--on:#10151f}}
+:root[data-theme="dark"]{--paper:#10151f;--ink:#e9edf5;--muted:#9ba5bd;--line:#29324a;--blue:#7fb4ff;--hl:#e0ac12;--ok:#5fd397;--warn:#ff8a80;--card:#182032;--on:#10151f}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font:700 28px/1.2 Georgia,"Times New Roman",serif;margin:8px 0 6px}
+h1 mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;padding:0 2px}
+.sub{color:var(--muted);margin:0 0 18px}
+nav{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px}
+nav button{flex:0 0 auto;font:600 14px system-ui,sans-serif;padding:9px 13px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{border-color:var(--blue);background:var(--blue);color:var(--on)}
+button:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+.progress{font-size:13px;color:var(--muted);margin:2px 0 6px}
+.notebook{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--hl);border-radius:6px;padding:4px 16px 12px;margin:6px 0 16px}
+.notebook h2{font:700 19px/1.4 Georgia,serif;margin:14px 0 4px}
+.notebook p{margin:0 0 8px}
+.notebook ul{margin:0 0 8px;padding-left:20px}
+code{display:block;font:600 16px/1.5 ui-monospace,Menlo,Consolas,monospace;color:var(--blue);overflow-x:auto;white-space:nowrap;margin:0 0 8px}
+.warn{border-left:4px solid var(--warn);padding:8px 12px;background:var(--paper);border-radius:4px;margin:8px 0}
+h3{font:700 17px Georgia,serif;margin:22px 0 8px}
+details{background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
+summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"Voir la correction";display:block;font-weight:500;font-size:13px;color:var(--blue)}
+details[open] summary::after{content:"Masquer"}
+.corr{padding:0 14px 12px;color:var(--ok);font-weight:500}
+.step{display:flex;gap:10px;margin-top:18px}
+.step button{flex:1;font:600 15px system-ui,sans-serif;padding:12px;border-radius:10px;border:2px solid var(--blue);background:var(--card);color:var(--blue);cursor:pointer}
+.step button[disabled]{opacity:.35;cursor:default}
+.contact{margin-top:28px;padding:16px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.contact a{display:inline-block;margin-top:6px;padding:11px 18px;border-radius:10px;background:var(--ok);color:var(--on);font-weight:700;text-decoration:none}
+footer{margin-top:20px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<h1>⚡ Électricité <mark>Pro</mark></h1>
+<p class="sub">Module électrique pour les techniciens : cours résumés et exercices corrigés, chapitre par chapitre. Léger, pour les petits forfaits.</p>
+<nav id="chs" role="tablist" aria-label="Chapitres"></nav>
+<div class="progress" id="pg"></div>
+<div id="out"></div>
+<div class="step"><button id="prev">← Précédent</button><button id="next">Suivant →</button></div>
+<div class="contact"><b>Une question ? Un chapitre à ajouter ?</b><br><a id="wa" href="#">Écrire sur WhatsApp</a></div>
+<footer>Contenu pédagogique de base. Les repères de câblage suivent des normes courantes et doivent être confrontés à ton programme et aux règles locales. Ne fais jamais de travaux sous tension sans formation.</footer>
+</main>
+<script>
+var NUMERO="243839389283"; // numéro WhatsApp (format 243...)
+var C=[
+{n:"1. Bases",t:"<h2>Grandeurs</h2><ul><li><b>Tension U</b> en volts (V)</li><li><b>Courant I</b> en ampères (A)</li><li><b>Résistance R</b> en ohms (Ω)</li><li><b>Puissance P</b> en watts (W)</li></ul><p>Les conducteurs (cuivre, aluminium) laissent passer le courant. Les isolants (plastique, caoutchouc, verre) l'arrêtent.</p><h2>Loi d'Ohm</h2><code>U = R × I</code><code>I = U / R   R = U / I</code>",
+ e:[["U = 12 V et R = 6 Ω. Calcule I.","I = 12 / 6 = 2 A."],["I = 0,5 A et R = 440 Ω. Calcule U.","U = 440 × 0,5 = 220 V."],["U = 220 V et I = 11 A. Calcule R.","R = 220 / 11 = 20 Ω."]]},
+{n:"2. Circuits",t:"<h2>Montage en série</h2><ul><li>Même courant partout</li><li>Les tensions s'additionnent</li></ul><code>Rt = R1 + R2 + R3</code><h2>Montage en parallèle</h2><ul><li>Même tension aux bornes</li><li>Les courants s'additionnent</li></ul><code>1/Rt = 1/R1 + 1/R2</code><p>Les prises et lampes d'une maison sont en parallèle.</p>",
+ e:[["Deux résistances de 10 Ω et 20 Ω en série. Rt ?","Rt = 10 + 20 = 30 Ω."],["Deux résistances de 10 Ω en parallèle. Rt ?","1/Rt = 1/10 + 1/10 = 2/10, donc Rt = 5 Ω."],["Pourquoi monte-t-on les lampes d'une maison en parallèle ?","Chaque lampe reçoit la tension du réseau et on peut en éteindre une sans couper les autres."]]},
+{n:"3. Puissance",t:"<h2>Formules</h2><code>P = U × I</code><code>E = P × t</code><p>P en watts, t en heures : l'énergie E est en Wh. Divise par 1 000 pour obtenir des kWh (l'unité de la facture).</p><code>Coût = kWh × prix du kWh</code>",
+ e:[["Lampe de 60 W allumée 5 h. Énergie ?","E = 60 × 5 = 300 Wh = 0,3 kWh."],["Fer à repasser de 1 000 W sur 220 V. Courant ?","I = P / U = 1 000 / 220 ≈ 4,5 A."],["Un appareil de 2 kW tourne 4 h. Énergie ?","E = 2 × 4 = 8 kWh."]]},
+{n:"4. Alternatif",t:"<h2>Courant alternatif</h2><p>Le courant change de sens régulièrement. En RDC, le réseau est généralement de 220 V monophasé et 380 V triphasé, à 50 Hz (à vérifier sur place).</p><code>f = 1 / T</code><code>U eff = U max / √2</code><h2>Triphasé</h2><code>U composée = √3 × U simple</code><p>Entre deux phases : environ 380 V. Entre phase et neutre : environ 220 V.</p>",
+ e:[["La période est T = 0,02 s. Fréquence ?","f = 1 / 0,02 = 50 Hz."],["U max = 311 V. Tension efficace ?","U eff = 311 / 1,414 ≈ 220 V."],["U simple = 220 V en triphasé. U composée ?","220 × 1,73 ≈ 380 V."]]},
+{n:"5. Installation",t:"<h2>Protections</h2><ul><li><b>Disjoncteur</b> : coupe en cas de surcharge ou de court-circuit. Il protège les câbles.</li><li><b>Différentiel 30 mA</b> : coupe en cas de fuite de courant. Il protège les personnes.</li><li><b>Terre</b> : évacue les défauts vers le sol.</li></ul><h2>Sections de câble (repères usuels)</h2><ul><li>Éclairage : 1,5 mm²</li><li>Prises 16 A : 2,5 mm²</li></ul><p>Plus l'intensité est forte, plus la section doit être grande, sinon le câble chauffe.</p>",
+ e:[["Quelle protection sauve une personne qui touche un fil dénudé ?","Le différentiel 30 mA."],["Quelle section de câble pour un circuit de prises 16 A ?","2,5 mm² (repère usuel)."],["Que risque-t-on avec un câble trop fin ?","Il chauffe, abîme l'isolant et peut provoquer un incendie."]]},
+{n:"6. Sécurité",t:"<h2>Avant toute intervention</h2><ul><li>Couper l'alimentation</li><li>Consigner : empêcher toute remise sous tension (cadenas, étiquette)</li><li>Vérifier l'absence de tension avec un testeur</li><li>Porter les protections : gants isolants, chaussures, lunettes</li></ul><div class='warn'><b>Électrisation :</b> coupe le courant avant de toucher la victime, puis appelle les secours.</div><p>Ne travaille jamais seul sous tension, et jamais les mains ou les pieds mouillés.</p>",
+ e:[["Cite les 4 étapes avant de travailler sur un circuit.","Couper, consigner, vérifier l'absence de tension, se protéger."],["Une personne est collée à un fil sous tension. Premier geste ?","Couper le courant, puis appeler les secours."],["Pourquoi consigner le circuit ?","Pour éviter qu'une autre personne le remette sous tension pendant le travail."]]},
+{n:"7. Machines",t:"<h2>Transformateur</h2><code>U1 / U2 = N1 / N2</code><p>N1 et N2 sont les nombres de spires du primaire et du secondaire.</p><h2>Moteur asynchrone</h2><code>n = 60 × f / p</code><p>n : vitesse de synchronisme en tr/min, f : fréquence, p : nombre de paires de pôles. La vitesse réelle est un peu plus faible.</p>",
+ e:[["N1 = 1 000, N2 = 100, U1 = 220 V. U2 ?","U2 = 220 × 100 / 1 000 = 22 V."],["f = 50 Hz et p = 2. Vitesse de synchronisme ?","n = 60 × 50 / 2 = 1 500 tr/min."],["Ce transformateur abaisse ou élève la tension ?","Il l'abaisse (de 220 V à 22 V)."]]},
+{n:"8. Mesures",t:"<h2>Appareils</h2><ul><li><b>Voltmètre</b> : en parallèle</li><li><b>Ampèremètre</b> : en série</li><li><b>Ohmmètre</b> : hors tension, composant isolé</li></ul><p>Le multimètre fait les trois. Choisis le bon calibre : commence par le plus grand, puis réduis.</p><div class='warn'>Ne mesure jamais une résistance sur un circuit sous tension.</div>",
+ e:[["Comment branche-t-on un ampèremètre ?","En série dans le circuit."],["Comment mesure-t-on la tension d'une prise ?","Voltmètre en parallèle, sur AC, calibre supérieur à 220 V."],["Pourquoi commencer par le plus grand calibre ?","Pour ne pas abîmer l'appareil si la valeur est plus forte que prévu."]]}
+];
+var i=0;
+function draw(){
+ var N=document.getElementById("chs");N.innerHTML="";
+ C.forEach(function(x,k){var b=document.createElement("button");b.textContent=x.n;b.setAttribute("role","tab");b.setAttribute("aria-selected",k==i);b.onclick=function(){i=k;draw();window.scrollTo(0,0)};N.appendChild(b)});
+ var c=C[i],h='<div class="notebook">'+c.t+'</div><h3>Exercices</h3>';
+ c.e.forEach(function(q,k){h+='<details><summary>'+(k+1)+'. '+q[0]+'</summary><div class="corr">'+q[1]+'</div></details>'});
+ document.getElementById("out").innerHTML=h;
+ document.getElementById("pg").textContent="Chapitre "+(i+1)+" sur "+C.length;
+ document.getElementById("prev").disabled=i==0;document.getElementById("next").disabled=i==C.length-1;
+ var a=N.children[i];if(a&&a.scrollIntoView)a.scrollIntoView({inline:"center",block:"nearest"});
+}
+document.getElementById("prev").onclick=function(){if(i>0){i--;draw();window.scrollTo(0,0)}};
+document.getElementById("next").onclick=function(){if(i<C.length-1){i++;draw();window.scrollTo(0,0)}};
+document.getElementById("wa").href="https://wa.me/"+NUMERO+"?text="+encodeURIComponent("Bonjour, j'ai une question sur le site Électricité Pro.");
+draw();
+</script>
+</body>
+</html>
